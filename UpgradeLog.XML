@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="CLOTH">
+</Property><Property Name="ソリューション ファイル" Value="C:\Users\kusumi\Documents\Dropbox\labo_kusumi\Projects\CLOTH\CLOTH.sln">
+</Property><Property Name="ユーザー オプション ファイル" Value="C:\Users\kusumi\Documents\Dropbox\labo_kusumi\Projects\CLOTH\CLOTH.suo">
+</Property><Property Name="Date" Value="2011年10月31日">
+</Property><Property Name="Time" Value="19:53">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="CLOTH.sln" Description="ファイルは正常に C:\Users\kusumi\Documents\Dropbox\labo_kusumi\Projects\CLOTH\CLOTH.sln.old としてバックアップされました。">
+</Event><Event ErrorLevel="0" Project="" Source="CLOTH.suo" Description="ファイルは正常に C:\Users\kusumi\Documents\Dropbox\labo_kusumi\Projects\CLOTH\CLOTH.suo.old としてバックアップされました。">
+</Event><Event ErrorLevel="0" Project="CLOTH" Source="CLOTH\CLOTH.vcproj" Description="Converting project file 'C:\Users\kusumi\Documents\Dropbox\labo_kusumi\Projects\CLOTH\CLOTH\CLOTH.vcproj'.">
+</Event><Event ErrorLevel="1" Project="CLOTH" Source="CLOTH\CLOTH.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="CLOTH" Source="CLOTH\CLOTH.vcproj" Description="Done converting to new project file 'C:\Users\kusumi\Documents\Dropbox\labo_kusumi\Projects\CLOTH\CLOTH\CLOTH.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="CLOTH" Source="CLOTH\CLOTH.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="INIT" Source="INIT\INIT.vcproj" Description="Converting project file 'C:\Users\kusumi\Documents\Dropbox\labo_kusumi\Projects\CLOTH\INIT\INIT.vcproj'.">
+</Event><Event ErrorLevel="1" Project="INIT" Source="INIT\INIT.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="INIT" Source="INIT\INIT.vcproj" Description="Done converting to new project file 'C:\Users\kusumi\Documents\Dropbox\labo_kusumi\Projects\CLOTH\INIT\INIT.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="INIT" Source="INIT\INIT.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="CLOTH.sln" Description="ソリューションは正常に変換されました">
+</Event><Event ErrorLevel="3" Project="" Source="CLOTH.sln" Description="Converted">
+</Event></UpgradeLog>
