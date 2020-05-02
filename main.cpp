@@ -4,15 +4,15 @@
 
 using namespace std;
 
-//---íËêî
-static const char* iFileName = "../init2.txt";
+//---ÔøΩËêî
+static const char* iFileName = "./init2.txt";
 static const double dt = 0.0001;
 static const double springConst = 30.0;
 static const double springConst2 = 1000.0;
 static const double dampingConst = 10.0;
 static const double mass = 0.00020543;
-static const double SPH_SIMSCALE    = 0.004;		// ÉVÉ~ÉÖÉåÅ[ÉVÉáÉìÇÃÉXÉPÅ[Éã
-static const double SPH_RESTDENSITY = 1000.0;	// íËèÌñßìx
+static const double SPH_SIMSCALE    = 0.004;		// ÔøΩVÔøΩ~ÔøΩÔøΩÔøΩÔøΩÔøΩ[ÔøΩVÔøΩÔøΩÔøΩÔøΩÔøΩÃÉXÔøΩPÔøΩ[ÔøΩÔøΩ
+static const double SPH_RESTDENSITY = 1000.0;	// ÔøΩÔøΩÔøΩÌñßÔøΩx
 static const double d =  pow(mass / SPH_RESTDENSITY, 1.0f/3.0 );
 static const double h = d * 0.95 * 2.1;
 static const double min_x = 2.0;
@@ -25,7 +25,7 @@ static const double gravity_x = 0.0;
 static const double gravity_y = -9.8;
 static const double gravity_z = 0.0;
 
-//---ïœêî
+//---ÔøΩœêÔøΩ
 int pSize;
 double t = 0;
 double t_end;
@@ -44,16 +44,16 @@ typedef struct
 	double fz;
 }PARTICLE;
 
-PARTICLE p0[507];	//èâä˙ó±éqîzíu
-PARTICLE p[507];	//çXêVó±éqîzíu
-PARTICLE ball;		//äOìG
-//PARTICLE p0[169];	//èâä˙ó±éqîzíu
-//PARTICLE p[169];	//çXêVó±éqîzíu
+PARTICLE p0[507];	//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩqÔøΩzÔøΩu
+PARTICLE p[507];	//ÔøΩXÔøΩVÔøΩÔøΩÔøΩqÔøΩzÔøΩu
+PARTICLE ball;		//ÔøΩOÔøΩG
+//PARTICLE p0[169];	//ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩqÔøΩzÔøΩu
+//PARTICLE p[169];	//ÔøΩXÔøΩVÔøΩÔøΩÔøΩqÔøΩzÔøΩu
 
 void init()
 {
 	ifstream ifs(iFileName);
-	
+
 	ifs >> pSize;
 	//p0	= new PARTICLE[pSize];
 	//p	= new PARTICLE[pSize];
@@ -66,7 +66,7 @@ void init()
 		i++;
 	}
 
-	//---É{Å[ÉãÇÃèâä˙âª
+	//---ÔøΩ{ÔøΩ[ÔøΩÔøΩÔøΩÃèÔøΩÔøΩÔøΩÔøΩÔøΩ
 	ball.x = 10.0;ball.y = 30.0;ball.z = 10.0;
 	ball.fx = 0.0;ball.fy = 0.0;ball.fz = 0.0;
 	ball.vx = 0.0;ball.vy = 0.0;ball.vz = 0.0;
@@ -83,18 +83,18 @@ double dist2(PARTICLE pi, PARTICLE pj)
 }
 void cal_force()
 {
-	//---óÕÇÉ[ÉçÇ…ê›íË
+	//---ÔøΩÕÇÔøΩÔøΩ[ÔøΩÔøΩÔøΩ…ê›íÔøΩ
 	for(int i = 0;i< pSize;i++){
 		p[i].fx = p[i].fy = p[i].fz = 0.0;
 	}
 	ball.fx = ball.fy = ball.fz = 0.0;
 
-	//---óÕÇåvéZ
+	//---ÔøΩÕÇÔøΩÔøΩvÔøΩZ
 	for(int i = 0;i< pSize-1;i++){
 		for(int j = i+1;j < pSize;j++){
 			double r_ij = dist(p[i], p[j]);
 			double r0_ij = dist(p0[i], p0[j]);
-			
+
 			if (r0_ij > h / SPH_SIMSCALE) continue;
 			PARTICLE pi_n1, pj_n1;
 			pi_n1.x = p[i].x + p[i].vx * dt;
@@ -108,7 +108,7 @@ void cal_force()
 			p[i].fx += -springConst * (r_ij - r0_ij) * SPH_SIMSCALE * (p[i].x - p[j].x) / r_ij + dampingConst * dl_ij * (p[i].x - p[j].x) * SPH_SIMSCALE / (dt * r_ij);
 			p[i].fy += -springConst * (r_ij - r0_ij) * SPH_SIMSCALE * (p[i].y - p[j].y) / r_ij + dampingConst * dl_ij * (p[i].y - p[j].y) * SPH_SIMSCALE / (dt * r_ij);
 			p[i].fz += -springConst * (r_ij - r0_ij) * SPH_SIMSCALE * (p[i].z - p[j].z) / r_ij + dampingConst * dl_ij * (p[i].z - p[j].z) * SPH_SIMSCALE / (dt * r_ij);
-			
+
 			p[j].fx += -springConst * (r_ij - r0_ij) * SPH_SIMSCALE * (p[j].x - p[i].x) / r_ij + dampingConst * dl_ij * (p[j].x - p[i].x) * SPH_SIMSCALE / (dt * r_ij);
 			p[j].fy += -springConst * (r_ij - r0_ij) * SPH_SIMSCALE * (p[j].y - p[i].y) / r_ij + dampingConst * dl_ij * (p[j].y - p[i].y) * SPH_SIMSCALE / (dt * r_ij);
 			p[j].fz += -springConst * (r_ij - r0_ij) * SPH_SIMSCALE * (p[j].z - p[i].z) / r_ij + dampingConst * dl_ij * (p[j].z - p[i].z) * SPH_SIMSCALE / (dt * r_ij);
@@ -121,11 +121,11 @@ void cal_force()
 	ball.fy += gravity_y * mass;
 }
 void cal_ext(){
-	//---ÉyÉiÉãÉeÉBñ@
+	//---ÔøΩyÔøΩiÔøΩÔøΩÔøΩeÔøΩBÔøΩ@
 	for(int i = 0;i < pSize;i++){
 		double r_pb = dist(p[i], ball);
 		if(r_pb < d){
-			//---Ç¢Ç‹Ç±Ç±ëfí ÇËÇµÇƒÇÈ
+			//---ÔøΩÔøΩÔøΩ‹ÇÔøΩÔøΩÔøΩÔøΩfÔøΩ ÇËÇµÔøΩƒÇÔøΩ
 			ball.fx = - springConst2 * (d - r_pb) * SPH_SIMSCALE * (p[i].x - ball.x) / r_pb;
 			ball.fy = - springConst2 * (d - r_pb) * SPH_SIMSCALE * (p[i].y - ball.y) / r_pb;
 			ball.fz = - springConst2 * (d - r_pb) * SPH_SIMSCALE * (p[i].z - ball.z) / r_pb;
@@ -140,9 +140,9 @@ void cal_ext(){
 void update(){
 	for(int i = 0;i < pSize;i++){
 		if(p[i].x < min_x || p[i].x > max_x|| p[i].z < min_z || p[i].z > max_z)continue;
-		p[i].vx += (p[i].fx / mass) * dt; 
-		p[i].vy += (p[i].fy / mass) * dt; 
-		p[i].vz += (p[i].fz / mass) * dt; 
+		p[i].vx += (p[i].fx / mass) * dt;
+		p[i].vy += (p[i].fy / mass) * dt;
+		p[i].vz += (p[i].fz / mass) * dt;
 	}
 	for(int i = 0;i < pSize;i++){
 		p[i].x += p[i].vx * dt;
@@ -158,7 +158,7 @@ void update(){
 	t+= dt;
 }
 void output_obj(int cnt)
-{	
+{
 	char file_name[19];
 	sprintf(file_name, "result%08d.obj", cnt);
 	//cout << "processing " << file_name << " ..." << endl;
@@ -175,9 +175,9 @@ void output_obj(int cnt)
 }
 int main()
 {
-	cout << "ÉVÉ~ÉÖÉåÅ[ÉVÉáÉìéûä‘ÅF";
+	cout << "ÔøΩVÔøΩ~ÔøΩÔøΩÔøΩÔøΩÔøΩ[ÔøΩVÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ‘ÅF";
 	cin >> t_end;
-	//---èâä˙ó±éqîzíu
+	//---ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩqÔøΩzÔøΩu
 	init();
 
 	int count = 0;
@@ -186,21 +186,21 @@ int main()
 	//---simulation
 	while(t < t_end){
 		//---output objfile
-		//0.1sÇ≤Ç∆Ç…ï`âÊ
+		//0.1sÔøΩÔøΩÔøΩ∆Ç…ï`ÔøΩÔøΩ
 		if(t > t_next-epsilon && t < t_next + epsilon){
-			cout << t << "ïb" << endl;
+			cout << t << "ÔøΩb" << endl;
 			output_obj(count);
-			count++; 
+			count++;
 			t_next += ot;
 		}
-		
-		//---ÉoÉlÉ_ÉìÉpÉÇÉfÉãìKâû
+
+		//---ÔøΩoÔøΩlÔøΩ_ÔøΩÔøΩÔøΩpÔøΩÔøΩÔøΩfÔøΩÔøΩÔøΩKÔøΩÔøΩ
 		cal_force();
 
-		//---äOóÕåvéZ
+		//---ÔøΩOÔøΩÕåvÔøΩZ
 		cal_ext();
 
-		//---à íuë¨ìxçXêV
-		update();		
+		//---ÔøΩ íuÔøΩÔøΩÔøΩxÔøΩXÔøΩV
+		update();
 	}
 }
